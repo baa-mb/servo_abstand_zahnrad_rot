@@ -1,26 +1,28 @@
+let drehmoment = 0
 let distanz_vorher = 0
-let distanz = 0
 let distanz_zeit = 0
+let distanz = 0
 basic.showIcon(IconNames.Yes)
 basic.forever(function () {
-    distanz_zeit = sonar.ping(
-    DigitalPin.P1,
-    DigitalPin.P2,
-    PingUnit.MicroSeconds
-    )
     distanz = sonar.ping(
-    DigitalPin.P1,
+    DigitalPin.P0,
     DigitalPin.P2,
     PingUnit.Centimeters
     )
-    serial.writeValue(convertToText(distanz_zeit), distanz)
+    distanz_zeit = sonar.ping(
+    DigitalPin.P0,
+    DigitalPin.P2,
+    PingUnit.MicroSeconds
+    )
     if (distanz != distanz_vorher) {
         if (distanz < 10) {
-            pins.servoWritePin(AnalogPin.P0, Math.map(distanz, 1, 9, 98, 180))
+            drehmoment = Math.map(distanz, 9, 1, 98, 180)
+            serial.writeValue("x", drehmoment)
+            pins.servoWritePin(AnalogPin.P8, drehmoment)
         } else {
-            pins.servoWritePin(AnalogPin.P0, 90)
+            pins.servoWritePin(AnalogPin.P8, 90)
         }
     }
     distanz_vorher = distanz
-    basic.pause(500)
+    basic.pause(200)
 })

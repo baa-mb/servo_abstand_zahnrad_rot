@@ -1,5 +1,5 @@
 {
-    "name": "servo_abstand_zahnrad_rot",
+    "name": "servo_abstand_zahnrad_rot_test",
     "description": "",
     "dependencies": {
         "core": "*",
@@ -9,7 +9,8 @@
     "files": [
         "main.blocks",
         "main.ts",
-        "README.md"
+        "README.md",
+        "main.py"
     ],
     "testFiles": [
         "test.ts"
